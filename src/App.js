@@ -2,18 +2,21 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [data, setData] = useState();
-
-  async function fetchData() {
-    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-    res.json().then((res) => setData(res));
-  }
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetchData();
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((res) => res.json())
+      .then((val) => setData(val));
   }, []);
 
-  return <div className="App">{JSON.stringify(data)}</div>;
+  return (
+    <div className="App">
+      {data.map((val) => {
+        return <li>{val.body}</li>;
+      })}
+    </div>
+  );
 }
 
 export default App;
