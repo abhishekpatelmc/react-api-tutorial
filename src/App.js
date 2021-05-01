@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import { ChildComponent } from "./ChildComponent";
 
 function App() {
   const [data, setData] = useState([]);
@@ -12,9 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      {data.map((val) => {
-        return <li>{val.body}</li>;
-      })}
+      <ChildComponent val={data} />
     </div>
   );
 }
