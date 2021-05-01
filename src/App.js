@@ -1,25 +1,19 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const data = (state) => {
-    this.state = {
-      items: [],
-      isLoading: false,
-    };
-  };
+  const [data, setData] = useState();
 
-  const didMount = () => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({
-          isLoading: true,
-          items: json,
-        });
-      });
-  };
+  async function fetchData() {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+    res.json().then((res) => setData(res));
+  }
 
-  return <div className="App">Hello</div>;
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return <div className="App">{JSON.stringify(data)}</div>;
 }
 
 export default App;
